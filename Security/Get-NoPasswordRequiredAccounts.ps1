@@ -2,6 +2,9 @@
 .SYNOPSIS
     Returns a list of domain users with PasswordNotRequired set.
 
+    To be run via an automate monitor with the following string
+        %windir%\System32\WindowsPowerShell\v1.0\powershell.exe /c "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (new-object Net.WebClient).DownloadString('https://raw.githubusercontent.com/AllegTech/AllegPublic/main/Security/Get-NoPasswordRequiredAccounts.ps1') | Invoke-Expression"
+
 .NOTES
     CREATE DATE:    2024-06-11
     CREATE AUTHOR:  Nick Noonan
@@ -31,7 +34,7 @@ if (((Get-ADDomain | Select-Object PDCEmulator).PDCEmulator -replace "\..*$","")
 
     # return the list if there are any
     if ($nonCompliantUsers) {
-        return $nonCompliantUsers
+        return $nonCompliantUsers.DistinguishedName
     } else {
         return 0
     }
