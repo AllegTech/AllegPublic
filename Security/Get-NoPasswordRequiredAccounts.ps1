@@ -19,6 +19,7 @@ if (((Get-ADDomain | Select-Object PDCEmulator).PDCEmulator -replace "\..*$","")
     # domain trust account require the PasswordNotRequired attribute
     # grab each domain trust so they can be excluded later
     $trustedDomains = @()
+    $trustedDomains += "INDIA"
     $trusts = Get-AdTrust -filter * -properties FlatName
     foreach ($trust in $trusts) {
         $trustedDomains += "$($trust.FlatName)"
