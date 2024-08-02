@@ -58,7 +58,7 @@ Test Results:
 
 "@
 #getting my IP address
-$ExternalIP = (Invoke-WebRequest -uri "http://ifconfig.me/ip").Content
+$ExternalIP = (Invoke-WebRequest -uri "http://ifconfig.me/ip" -UseBasicParsing).Content
 
 $emailBody += @"
 <br>
