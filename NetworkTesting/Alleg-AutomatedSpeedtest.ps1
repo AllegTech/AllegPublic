@@ -66,7 +66,8 @@ $emailBody += @"
 <br>Workstation Name: $($computername)
 
 "@
-
+New-NetFirewallRule -DisplayName "Iperf3 Inbound" -Direction Inbound -Program "c:\allegbin\iperf3.exe" -Action Allow
+New-NetFirewallRule -DisplayName "Iperf3 Outbound" -Direction Outbound -Program "c:\allegbin\iperf3.exe" -Action Allow
 #running iperftests
 $tests = @()
 $filelist = @()
@@ -95,6 +96,9 @@ foreach ($ip in $iperfTestServer) {
     }
     $tests += $myObject
 }
+
+Remove-NetFirewallRule -DisplayName "Iperf3 Inbound"
+Remove-NetFirewallRule -DisplayName "Iperf3 Outbound" -Direction Outbound -Program "c:\allegbin\iperf3.exe" -Action Allow
 
 $emailBody += @"
 
