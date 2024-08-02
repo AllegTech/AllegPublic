@@ -72,9 +72,9 @@ New-NetFirewallRule -DisplayName "Iperf3 Outbound" -Direction Outbound -Program 
 $tests = @()
 $filelist = @()
 foreach ($ip in $iperfTestServer) {
-    $downloadTCPSpeedJson = cmd /c "C:\allegbin\iperf3.exe -c $ip -p $port -P 10 -t $test_length -J"
+    $downloadTCPSpeedJson = cmd /c "C:\allegbin\iperf3.exe -c $ip -p $port -P 5 -t $test_length -J"
     $downloadTCPSpeedJson | out-file "C:\allegbin\$($timestamp)_$($ip)_DownloadSpeed-tcp.json" -Force
-    $uploadTCPSpeedJson = cmd /c "C:\allegbin\iperf3.exe -c $ip -p $port -P 10 -t $test_length -R -J"
+    $uploadTCPSpeedJson = cmd /c "C:\allegbin\iperf3.exe -c $ip -p $port -P 5 -t $test_length -R -J"
     $uploadTCPSpeedJson | out-file "C:\allegbin\$($timestamp)_$($ip)_UploadSpeed-tcp.json" -Force
     $downloadUDPSpeedJson = cmd /c "C:\allegbin\iperf3.exe -c $ip -p $port -t $test_length -u -b 10M -J"
     $downloadUDPSpeedJson | out-file "C:\allegbin\$($timestamp)_$($ip)_DownloadSpeed-udp.json" -Force
