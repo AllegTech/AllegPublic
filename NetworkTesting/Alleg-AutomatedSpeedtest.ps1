@@ -84,6 +84,7 @@ foreach ($ip in $iperfTestServer) {
     $filelist += get-item -Path "C:\allegbin\$($timestamp)_$($ip)_UploadSpeed-tcp.json"
     $filelist += get-item -Path "C:\allegbin\$($timestamp)_$($ip)_DownloadSpeed-udp.json"
     $filelist += get-item -Path "C:\allegbin\$($timestamp)_$($ip)_UploadSpeed-udp.json"
+    $RTTTime = (Test-NetConnection $IP).pingreplydetails.roundtriptime
 
     $myObject = [PSCustomObject]@{
         TestingServerIP             = $ip
@@ -93,6 +94,7 @@ foreach ($ip in $iperfTestServer) {
         download_packetloss_percent = ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.lost_packets / ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.packets * 100
         upload_Jitter_ms            = ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.jitter_ms
         upload_packetloss_percent   = ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.lost_packets / ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.packets * 100
+        ping_Response_time          = $RTTTime
     }
     $tests += $myObject
 }
@@ -116,6 +118,7 @@ foreach ($test in $tests) {
 <br>Download&nbsp;packet&nbsp;loss&nbsp;:&nbsp;$([math]::round($Test.download_packetloss_percent,2))%
 <br>Uplaod&nbsp;jitter&nbsp;MS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;$([math]::round($Test.upload_Jitter_ms,2))
 <br>upload&nbsp;packet&nbsp;loss&nbsp;&nbsp;&nbsp;:&nbsp;$([math]::round($Test.upload_packetloss_percent,2))%
+<br>Ping&nbsp;MS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;$($Test.ping_Response_time)
 <br>
 <br>
 <br>------------------------------------------
