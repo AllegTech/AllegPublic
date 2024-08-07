@@ -88,12 +88,12 @@ foreach ($ip in $iperfTestServer) {
 
     $myObject = [PSCustomObject]@{
         TestingServerIP             = $ip
-        TCPDownload_mbps            = ($uploadTCPSpeedJson | convertfrom-json).end.sum_received.bits_per_second / 1024 / 1024
-        TCPUpload_mbps              = ($downloadTCPSpeedJson | convertfrom-json).end.sum_received.bits_per_second / 1024 / 1024
-        download_Jitter_ms          = ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.jitter_ms
-        download_packetloss_percent = ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.lost_packets / ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.packets * 100
-        upload_Jitter_ms            = ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.jitter_ms
-        upload_packetloss_percent   = ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.lost_packets / ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.packets * 100
+        TCPDownload_mbps            = ($downloadTCPSpeedJson | convertfrom-json).end.sum_received.bits_per_second / 1024 / 1024
+        TCPUpload_mbps              = ($uploadTCPSpeedJson | convertfrom-json).end.sum_received.bits_per_second / 1024 / 1024
+        download_Jitter_ms          = ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.jitter_ms
+        download_packetloss_percent = ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.lost_packets / ($downloadUDPSpeedJson | convertfrom-json).end.sum_received.packets * 100
+        upload_Jitter_ms            = ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.jitter_ms
+        upload_packetloss_percent   = ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.lost_packets / ($uploadUDPSpeedJson | convertfrom-json).end.sum_received.packets * 100
         ping_Response_time          = $RTTTime
     }
     $tests += $myObject
