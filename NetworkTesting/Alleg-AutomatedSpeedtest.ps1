@@ -118,7 +118,7 @@ foreach ($test in $tests) {
 <br>Download&nbsp;packet&nbsp;loss&nbsp;:&nbsp;$([math]::round($Test.download_packetloss_percent,2))%
 <br>Uplaod&nbsp;jitter&nbsp;MS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;$([math]::round($Test.upload_Jitter_ms,2))
 <br>upload&nbsp;packet&nbsp;loss&nbsp;&nbsp;&nbsp;:&nbsp;$([math]::round($Test.upload_packetloss_percent,2))%
-<br>Ping&nbsp;MS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;$($Test.ping_Response_time)
+<br>Ping&nbsp;MS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;$($Test.ping_Response_time)
 <br>
 <br>
 <br>------------------------------------------
