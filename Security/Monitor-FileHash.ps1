@@ -49,6 +49,15 @@ foreach ($file in $FilesToMonitor) {
         else {
             if ($MD5HASH -ne ($PastFileInfo | Where-Object { $_.path -eq $file.File } | Sort-Object DateRetrived -Descending)[0].MD5Hash) {
                 $info | Export-Csv -Path C:\allegbin\FileMon\FileInfo.csv -NoTypeInformation -Append
+                $Body = "@
+                The file monitored on server: $($env:computername)
+                The File $($file) has changed.
+                The File hash is: $MD5Hash
+                The Old file hash is: $(($PastFileInfo | Where-Object { $_.path -eq $file.File } | Sort-Object DateRetrived -Descending)[0].MD5Hash)
+
+                Please check the settings in this file and why it changed.
+@"
+                $Subject = "A monitored file has changed on server $($env:computername) please investigate"
             }
         }
 
